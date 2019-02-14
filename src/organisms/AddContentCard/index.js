@@ -6,6 +6,7 @@ import {
 
 class AddContentCard extends PureComponent {
   render() {
+    const { addArticle } = this.props;
     return (
       <Card
         size="small"
@@ -13,10 +14,10 @@ class AddContentCard extends PureComponent {
       >
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
-            <Button type="primary" shape="circle" icon="font-colors" />
+            <Button type="primary" shape="circle" icon="font-colors" onClick={() => addArticle('text')} />
           </Col>
           <Col className="gutter-row" span={6}>
-            <Button type="primary" shape="circle" icon="appstore" />
+            <Button type="primary" shape="circle" icon="appstore" onClick={() => addArticle('product')} />
           </Col>
           <Col className="gutter-row" span={6}>
             <Button type="primary" shape="circle" icon="star" />

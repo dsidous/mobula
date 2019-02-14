@@ -6,31 +6,14 @@ import {
 import ProductCard from '../../molecules/ProductCard';
 
 class ArticleCard extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    const { article: { type, title, body, products } } = this.props;
-
-    this.state = {
-      type,
-      title,
-      body,
-      products,
-    };
-  }
-
   render() {
-    const {
-      type,
-      title,
-      body,
-      products,
-    } = this.state;
+    const { article: { type, title, body, products }, onClick, article } = this.props;
 
     return (
       <Card
         size="small"
         title={type}
+        onClick={() => onClick(article)}
       >
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
