@@ -22,3 +22,37 @@
   font-weight: 600;
   margin: 0;
 }
+
+.products-modal {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.products-modal .product img {
+  width: 100%;
+}
+
+.products-modal__products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  padding: 20px;
+}
+
+.products-modal__product-list {
+  border-left: 1px solid #666;
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr);
+  grid-gap: 10px;
+  padding: 20px;
+}
+
+.products-modal__product-list button {
+  background: none;
+  border: none;
+}
+
+.products-modal__product-list .product-retailer,
+.products-modal__product-list .product-price {
+  display: none;
+}

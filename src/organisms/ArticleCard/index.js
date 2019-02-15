@@ -17,7 +17,7 @@ class ArticleCard extends PureComponent {
       >
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
-            {type === 'products' && (
+            {type === 'product' && (
               <div className="product-grid">
                 {products.map(product => <ProductCard key={product} pid={product} />)}
               </div>

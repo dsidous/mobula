@@ -10,25 +10,7 @@ import ProductsModal from '../../molecules/ProductsModal';
 
 class Home extends PureComponent {
   state = {
-    articles: [
-      {
-        id: 1,
-        type: 'text',
-        title: 'This is a title',
-        body: 'This is body text',
-      },
-      {
-        id: 2,
-        type: 'products',
-        products: [167687, 168012],
-      },
-      {
-        id: 3,
-        type: 'text',
-        title: 'Title of final text block',
-        body: 'This is body text again',
-      },
-    ],
+    articles: [],
     showModal: false,
     modal: {},
   };
@@ -50,6 +32,32 @@ class Home extends PureComponent {
     }));
   }
 
+  handleAddProduct = (id) => {
+    const { modal: { products } } = this.state;
+
+    if (products.includes(id)) {
+      return false;
+    }
+
+    return this.setState(
+      (prevState) => {
+        const newProducts = [...prevState.modal.products, id];
+        return { modal: { ...prevState.modal, products: newProducts } };
+      },
+    );
+  }
+
+  handleRemoveProduct = id => (
+    this.setState(
+      prevState => ({
+        modal: {
+          ...prevState.modal,
+          products: prevState.modal.products.filter(product => product !== id),
+        },
+      }),
+    )
+  )
+
   handleOk = () => {
     this.setState((prevState) => {
       const { articles } = prevState;
@@ -67,6 +75,7 @@ class Home extends PureComponent {
   handleCancel = () => {
     this.setState({
       showModal: false,
+      modal: {},
     });
   }
 
@@ -105,7 +114,11 @@ class Home extends PureComponent {
                 articles.map(article => ((
                   <Row className="aricles-row" key={article.id}>
                     <Col>
-                      <ArticleCard article={article} onClick={this.showModal} handleRemove={this.removeArticle} />
+                      <ArticleCard
+                        article={article}
+                        onClick={this.showModal}
+                        handleRemove={this.removeArticle}
+                      />
                     </Col>
                   </Row>
                 )))
@@ -121,20 +134,30 @@ class Home extends PureComponent {
         <Footer style={{ textAlign: 'center' }}>
           ©2018 Created by TJ
         </Footer>
-        <Modal
-          title={modal.type}
-          visible={showModal}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-          {modal.type === 'text' && (
-            <TextModal article={modal} handleChange={this.handleChange} />
-          )}
+        {showModal && (
+          <Modal
+            title={modal.type}
+            visible={showModal}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+            width="80%"
+          >
+            {modal.type === 'text' && (
+              <TextModal
+                article={modal}
+                handleChange={this.handleChange}
+              />
+            )}
 
-          {modal.type === 'products' && (
-            <ProductsModal article={modal} handleChange={this.handleChange} />
-          )}
-        </Modal>
+            {modal.type === 'product' && (
+              <ProductsModal
+                products={modal.products || []}
+                handleAddProduct={this.handleAddProduct}
+                handleRemoveProduct={this.handleRemoveProduct}
+              />
+            )}
+          </Modal>
+        )}
       </Layout>
     );
   }
