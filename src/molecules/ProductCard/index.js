@@ -1,4 +1,6 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
+
 import data from '../../../data.json';
 
 const ProductCard = (props) => {
@@ -8,15 +10,15 @@ const ProductCard = (props) => {
     <figure className="product">
       <img src={product.image} alt={product.title} />
       <figcaption>
-        <p className="product-retailer">
+        <Typography variant="subtitle2">
           {product.retailer}
-        </p>
-        <p className="product-title">
+        </Typography>
+        <Typography noWrap>
           {product.title}
-        </p>
-        <p className="product-price">
+        </Typography>
+        <Typography>
           {product.price}
-        </p>
+        </Typography>
       </figcaption>
     </figure>
   );

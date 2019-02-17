@@ -1,34 +1,66 @@
 import React, { PureComponent } from 'react';
-import {
-  Card, Button, Row, Col,
-} from 'antd';
+import Fab from '@material-ui/core/Fab';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import TextFormatIcon from '@material-ui/icons/TextFormat';
+import AppsIcon from '@material-ui/icons/Apps';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  cardHeader: {
+    backgroundColor: '#f7f7f7',
+  },
+});
 
 class AddContentCard extends PureComponent {
   render() {
-    const { addArticle } = this.props;
+    const { addArticle, classes } = this.props;
     return (
-      <Card
-        size="small"
-        title="+ Add content"
-      >
-        <Row gutter={16}>
-          <Col className="gutter-row" span={6}>
-            <Button type="primary" shape="circle" icon="font-colors" onClick={() => addArticle('text')} />
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <Button type="primary" shape="circle" icon="appstore" onClick={() => addArticle('product')} />
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <Button type="primary" shape="circle" icon="star" />
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <div className="gutter-box">col-6</div>
-          </Col>
-        </Row>
+      <Card>
+        <CardHeader
+          className={classes.cardHeader}
+          subheader="+ Add content"
+        />
+        <CardContent>
+          <Fab
+            className={classes.button}
+            size="small"
+            variant="contained"
+            color="primary"
+            type="primary"
+            onClick={() => addArticle('text')}
+          >
+            <TextFormatIcon />
+          </Fab>
+          <Fab
+            className={classes.button}
+            size="small"
+            variant="contained"
+            color="primary"
+            type="primary"
+            onClick={() => addArticle('product')}
+          >
+            <AppsIcon />
+          </Fab>
+          <Fab
+            className={classes.button}
+            size="small"
+            variant="contained"
+            color="primary"
+            type="primary"
+            onClick={() => addArticle('favourite')}
+          >
+            <StarBorderIcon />
+          </Fab>
+        </CardContent>
       </Card>
     );
   }
 }
 
-export default AddContentCard;
+export default withStyles(styles)(AddContentCard);

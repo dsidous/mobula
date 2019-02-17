@@ -1,5 +1,8 @@
+body {
+  background: #eee;
+}
+
 .aricles-row {
-  box-shadow: 0 0 14px -8px #000;
   margin: 16px;
 }
 
@@ -12,6 +15,7 @@
 .product-grid figure {
   display: grid;
   grid-template-rows: 200px 1fr ;
+  margin: 0;
 }
 
 .product-grid figure img {
@@ -28,15 +32,28 @@
   grid-template-columns: 2fr 1fr;
 }
 
-.products-modal .product img {
+.product {
+  margin: 0;
+}
+
+.product img {
   width: 100%;
 }
 
 .products-modal__products {
+  align-items: self-start;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
   grid-gap: 10px;
-  padding: 20px;
+}
+
+.products-modal__products button {
+  background: none;
+  border: none;
+}
+
+.products-modal__products .products {
+  margin: 0;
 }
 
 .products-modal__product-list {

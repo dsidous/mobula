@@ -1,7 +1,12 @@
 import React, { PureComponent } from 'react';
-import {
-  Layout, Row, Col, Modal,
-} from 'antd';
+import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import ArticleCard from '../../organisms/ArticleCard';
 import AddContentCard from '../../organisms/AddContentCard';
@@ -96,69 +101,71 @@ class Home extends PureComponent {
   }
 
   render() {
-    const {
-      Header, Content, Footer,
-    } = Layout;
-
     const { articles, showModal, modal } = this.state;
 
     return (
-      <Layout>
-        <Header className="header">
-          Mobula test
-        </Header>
-        <Content style={{ padding: '50px 50px 0' }}>
-          <Layout style={{ padding: '24px 0', background: '#fff' }}>
-            <Content style={{ padding: '0 24px', minHeight: 280 }}>
-              {
-                articles.map(article => ((
-                  <Row className="aricles-row" key={article.id}>
-                    <Col>
-                      <ArticleCard
-                        article={article}
-                        onClick={this.showModal}
-                        handleRemove={this.removeArticle}
-                      />
-                    </Col>
-                  </Row>
-                )))
-              }
-              <Row className="aricles-row">
-                <Col>
-                  <AddContentCard addArticle={this.addArticle} />
-                </Col>
-              </Row>
-            </Content>
-          </Layout>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          ©2018 Created by TJ
-        </Footer>
+      <Grid container justify="center">
+        <Grid item xs={10} sm={8}>
+          <Grid container spacing={24}>
+            <Grid item xs={12}>
+              <Typography variant="h4">
+                Article editor
+              </Typography>
+            </Grid>
+            {
+              articles.map(article => ((
+                <Grid item xs={12} key={article.id}>
+                  <ArticleCard
+                    article={article}
+                    onClick={this.showModal}
+                    handleRemove={this.removeArticle}
+                    className="aricles-row"
+                  />
+                </Grid>
+              )))
+            }
+            <Grid item xs={12}>
+              <AddContentCard addArticle={this.addArticle} />
+            </Grid>
+          </Grid>
+        </Grid>
         {showModal && (
-          <Modal
-            title={modal.type}
-            visible={showModal}
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
-            width="80%"
+          <Dialog
+            fullWidth
+            maxWidth="sm"
+            open={showModal}
+            onClose={this.handleCancel}
           >
-            {modal.type === 'text' && (
-              <TextModal
-                article={modal}
-                handleChange={this.handleChange}
-              />
-            )}
+            <DialogTitle>
+              {`Edit ${modal.type}`}
+            </DialogTitle>
+            <DialogContent>
+              {modal.type === 'text' && (
+                <TextModal
+                  article={modal}
+                  handleChange={this.handleChange}
+                />
+              )}
 
-            {modal.type === 'product' && (
-              <ProductsModal
-                products={modal.products || []}
-                handleAddProduct={this.handleAddProduct}
-                handleRemoveProduct={this.handleRemoveProduct}
-              />
-            )}
-          </Modal>
+              {modal.type === 'product' && (
+                <ProductsModal
+                  products={modal.products || []}
+                  handleAddProduct={this.handleAddProduct}
+                  handleRemoveProduct={this.handleRemoveProduct}
+                />
+              )}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCancel} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.handleOk} color="primary">
+                Save
+              </Button>
+            </DialogActions>
+          </Dialog>
         )}
-      </Layout>
+      </Grid>
     );
   }
 }
