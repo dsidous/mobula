@@ -30,6 +30,13 @@ const styles = () => ({
     display: 'flex',
     alignItems: 'center',
   },
+  action: {
+    margin: 0,
+  },
+  iconRoot: {
+    padding: 0,
+    margin: '0 5px',
+  },
   icon: {
     fontSize: 12,
     marginRight: 6,
@@ -45,67 +52,76 @@ const ArticleCard = ({
   handleRemove,
   classes,
 }) => (
-  <Zoom in>
-    <Card>
-      <CardHeader
-        className={classes.cardHeader}
-        classes={{ subheader: classes.subheader }}
-        subheader={(
-          <ArticleHeader type={type} />
-        )}
-        action={(
-          <>
-            <IconButton onClick={() => onClick(article)}>
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={() => handleRemove(id)}>
-              <DeleteIcon />
-            </IconButton>
-          </>
-        )}
-      />
-      <CardContent>
-        {type === 'product' && products.length === 0 && (
-          <Typography
-            align="center"
-            variant="subtitle1"
-            color="textSecondary"
-          >
-            No products added.
-          </Typography>
-        )}
-        {type === 'product' && products.length !== 0 && (
-          <Grid container spacing={24}>
-            {products.map(product => (
-              <Grid item sm={3} xs={12} key={product}>
-                <ProductCard pid={product} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
-        {type === 'text' && title === '' && body === '' && (
-          <Typography
-            align="center"
-            variant="subtitle1"
-            color="textSecondary"
-          >
-            No text added.
-          </Typography>
-        )}
-        {type === 'text' && (title !== '' || body !== '') && (
-          <>
-            <Typography gutterBottom variant="h5" component="h2">
-              {title}
+    <Zoom in>
+      <Card>
+        <CardHeader
+          className={classes.cardHeader}
+          classes={{
+            subheader: classes.subheader,
+            action: classes.action,
+          }}
+          subheader={(
+            <ArticleHeader type={type} />
+          )}
+          action={(
+            <>
+              <IconButton
+                className={classes.iconRoot}
+                onClick={() => onClick(article)}
+              >
+                <EditIcon fontSize="small" />
+              </IconButton>
+              <IconButton
+                className={classes.iconRoot}
+                onClick={() => handleRemove(id)}
+              >
+                <DeleteIcon fontSize="small" />
+              </IconButton>
+            </>
+          )}
+        />
+        <CardContent>
+          {type === 'product' && products.length === 0 && (
+            <Typography
+              align="center"
+              variant="subtitle1"
+              color="textSecondary"
+            >
+              No products added.
             </Typography>
-            <Typography component="p">
-              {body}
+          )}
+          {type === 'product' && products.length !== 0 && (
+            <Grid container spacing={24}>
+              {products.map(product => (
+                <Grid item sm={3} xs={12} key={product}>
+                  <ProductCard pid={product} />
+                </Grid>
+              ))}
+            </Grid>
+          )}
+          {type === 'text' && title === '' && body === '' && (
+            <Typography
+              align="center"
+              variant="subtitle1"
+              color="textSecondary"
+            >
+              No text added.
             </Typography>
-          </>
-        )}
-      </CardContent>
-    </Card>
-  </Zoom>
-);
+          )}
+          {type === 'text' && (title !== '' || body !== '') && (
+            <>
+              <Typography gutterBottom variant="h5" component="h2">
+                {title}
+              </Typography>
+              <Typography component="p">
+                {body}
+              </Typography>
+            </>
+          )}
+        </CardContent>
+      </Card>
+    </Zoom>
+  );
 
 ArticleCard.propTypes = {
   article: shape({

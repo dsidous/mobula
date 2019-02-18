@@ -29,7 +29,7 @@ body {
 
 .products-modal {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 1fr;
 }
 
 .product {
@@ -43,13 +43,8 @@ body {
 .products-modal__products {
   align-items: self-start;
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
+  grid-template-columns: repeat( auto-fill, minmax(110px, 1fr) );
   grid-gap: 10px;
-}
-
-.products-modal__products button {
-  background: none;
-  border: none;
 }
 
 .products-modal__products .products {
@@ -57,11 +52,12 @@ body {
 }
 
 .products-modal__product-list {
-  border-left: 1px solid #666;
+  align-items: self-start;
   display: grid;
-  grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr);
-  grid-gap: 10px;
-  padding: 20px;
+  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
+  grid-gap: 5px;
+  margin-top: 10px;
+  padding: 10px;
 }
 
 .products-modal__product-list button {
