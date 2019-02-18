@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { func, object } from 'prop-types';
 import Fab from '@material-ui/core/Fab';
 import Card from '@material-ui/core/Card';
@@ -18,51 +18,46 @@ const styles = theme => ({
   },
 });
 
-class AddContentCard extends PureComponent {
-  render() {
-    const { addArticle, classes } = this.props;
-    return (
-      <Card>
-        <CardHeader
-          className={classes.cardHeader}
-          subheader="+ Add content"
-        />
-        <CardContent>
-          <Fab
-            className={classes.button}
-            size="small"
-            variant="contained"
-            color="primary"
-            type="primary"
-            onClick={() => addArticle('text')}
-          >
-            <TextFormatIcon />
-          </Fab>
-          <Fab
-            className={classes.button}
-            size="small"
-            variant="contained"
-            color="primary"
-            type="primary"
-            onClick={() => addArticle('product')}
-          >
-            <AppsIcon />
-          </Fab>
-          <Fab
-            className={classes.button}
-            size="small"
-            variant="contained"
-            color="primary"
-            type="primary"
-            onClick={() => addArticle('favourite')}
-          >
-            <StarBorderIcon />
-          </Fab>
-        </CardContent>
-      </Card>
-    );
-  }
-}
+const AddContentCard = ({ addArticle, classes }) => (
+  <Card>
+    <CardHeader
+      className={classes.cardHeader}
+      subheader="+ Add content"
+    />
+    <CardContent>
+      <Fab
+        className={classes.button}
+        size="small"
+        variant="round"
+        color="primary"
+        type="primary"
+        onClick={() => addArticle('text')}
+      >
+        <TextFormatIcon />
+      </Fab>
+      <Fab
+        className={classes.button}
+        size="small"
+        variant="round"
+        color="primary"
+        type="primary"
+        onClick={() => addArticle('product')}
+      >
+        <AppsIcon />
+      </Fab>
+      <Fab
+        className={classes.button}
+        size="small"
+        variant="round"
+        color="primary"
+        type="primary"
+        onClick={() => addArticle('favourite')}
+      >
+        <StarBorderIcon />
+      </Fab>
+    </CardContent>
+  </Card>
+);
 
 AddContentCard.propTypes = {
   addArticle: func.isRequired,

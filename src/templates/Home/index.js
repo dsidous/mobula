@@ -1,16 +1,10 @@
 import React, { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import ArticleCard from '../../organisms/ArticleCard';
 import AddContentCard from '../../organisms/AddContentCard';
-import TextModal from '../../molecules/TextModal';
-import ProductsModal from '../../molecules/ProductsModal';
+import DialogController from '../../molecules/DialogController';
 
 class Home extends PureComponent {
   state = {
@@ -26,47 +20,11 @@ class Home extends PureComponent {
     });
   }
 
-  handleChange = (e) => {
-    const { value, id } = e.target;
-    this.setState(prevState => ({
-      modal: {
-        ...prevState.modal,
-        [id]: value,
-      },
-    }));
-  }
-
-  handleAddProduct = (id) => {
-    const { modal: { products } } = this.state;
-
-    if (products.includes(id)) {
-      return false;
-    }
-
-    return this.setState(
-      (prevState) => {
-        const newProducts = [...prevState.modal.products, id];
-        return { modal: { ...prevState.modal, products: newProducts } };
-      },
-    );
-  }
-
-  handleRemoveProduct = id => (
-    this.setState(
-      prevState => ({
-        modal: {
-          ...prevState.modal,
-          products: prevState.modal.products.filter(product => product !== id),
-        },
-      }),
-    )
-  )
-
-  handleOk = () => {
+  handleOk = (modal) => {
     this.setState((prevState) => {
       const { articles } = prevState;
-      const index = articles.findIndex(article => article.id === prevState.modal.id);
-      articles[index] = prevState.modal;
+      const index = articles.findIndex(article => article.id === modal.id);
+      articles[index] = modal;
 
       return {
         articles,
@@ -131,40 +89,12 @@ class Home extends PureComponent {
           </Grid>
         </Grid>
         {showModal && (
-          <Dialog
-            fullWidth
-            maxWidth="sm"
-            open={showModal}
-            onClose={this.handleCancel}
-          >
-            <DialogTitle>
-              {`Edit ${modal.type}`}
-            </DialogTitle>
-            <DialogContent>
-              {modal.type === 'text' && (
-                <TextModal
-                  article={modal}
-                  handleChange={this.handleChange}
-                />
-              )}
-
-              {modal.type === 'product' && (
-                <ProductsModal
-                  products={modal.products || []}
-                  handleAddProduct={this.handleAddProduct}
-                  handleRemoveProduct={this.handleRemoveProduct}
-                />
-              )}
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleCancel} color="primary">
-                Cancel
-              </Button>
-              <Button onClick={this.handleOk} color="primary">
-                Save
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <DialogController
+            showModal={showModal}
+            modal={modal}
+            handleCancel={this.handleCancel}
+            handleOk={this.handleOk}
+          />
         )}
       </Grid>
     );

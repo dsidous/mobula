@@ -4,7 +4,8 @@
   ],
   "parser": "babel-eslint",
   "plugins": [
-    "jest"
+    "jest",
+    "react-hooks"
   ],
   "rules": {
     "no-unused-expressions": [
@@ -20,7 +21,8 @@
       }
     ],
     "react/prefer-stateless-function": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "react-hooks/rules-of-hooks": "error"
   },
   "env": {
     "browser": true,

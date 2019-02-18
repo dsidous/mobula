@@ -1,49 +1,40 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { func, number, arrayOf } from 'prop-types';
+import Fab from '@material-ui/core/Fab';
+import AppsIcon from '@material-ui/icons/Apps';
 
 import ProductList from '../../../data.json';
 import ProductCard from '../ProductCard';
 
-class ProductsModal extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      productList: ProductList,
-    };
-  }
-
-  render() {
-    const { products, handleAddProduct, handleRemoveProduct } = this.props;
-    const { productList } = this.state;
-    return (
-      <div className="products-modal">
-        <div className="products-modal__products">
-          {products.map(product => (
-            <button
-              type="button"
-              onClick={() => handleRemoveProduct(product)}
-              key={product}
-            >
-              <ProductCard pid={product} />
-            </button>
-          ))}
+const ProductsModal = ({ products, handleAddProduct, handleRemoveProduct }) => (
+  <div className="products-modal">
+    <div className="products-modal__products">
+      {products.map(product => (
+        <div key={product}>
+          <ProductCard pid={product} />
+          <Fab
+            badgeContent="x"
+            color="primary"
+            onClick={() => handleRemoveProduct(product)}
+          >
+            <AppsIcon />
+          </Fab>
         </div>
-        <div className="products-modal__product-list">
-          {productList.map(product => (
-            <button
-              type="button"
-              onClick={() => handleAddProduct(product.id)}
-              key={product.id}
-            >
-              <ProductCard pid={product.id} />
-            </button>
-          ))}
-        </div>
-      </div>
-    );
-  }
-}
+      ))}
+    </div>
+    <div className="products-modal__product-list">
+      {ProductList.map(product => (
+        <button
+          type="button"
+          onClick={() => handleAddProduct(product.id)}
+          key={product.id}
+        >
+          <ProductCard pid={product.id} />
+        </button>
+      ))}
+    </div>
+  </div>
+);
 
 ProductsModal.propTypes = {
   products: arrayOf(number).isRequired,
