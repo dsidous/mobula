@@ -86,8 +86,8 @@ class ArticleCard extends PureComponent {
           {type === 'product' && products.length !== 0 && (
             <Grid container spacing={24}>
               {products.map(product => (
-                <Grid item sm={3} xs={12}>
-                  <ProductCard key={product} pid={product} />
+                <Grid item sm={3} xs={12} key={product}>
+                  <ProductCard pid={product} />
                 </Grid>
               ))}
             </Grid>
