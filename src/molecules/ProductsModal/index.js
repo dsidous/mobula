@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { func, number, arrayOf } from 'prop-types';
 
 import ProductList from '../../../data.json';
 import ProductCard from '../ProductCard';
@@ -7,13 +8,10 @@ class ProductsModal extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { products } = this.props;
     this.state = {
       productList: ProductList,
     };
   }
-
-
 
   render() {
     const { products, handleAddProduct, handleRemoveProduct } = this.props;
@@ -46,5 +44,11 @@ class ProductsModal extends PureComponent {
     );
   }
 }
+
+ProductsModal.propTypes = {
+  products: arrayOf(number).isRequired,
+  handleAddProduct: func.isRequired,
+  handleRemoveProduct: func.isRequired,
+};
 
 export default ProductsModal;

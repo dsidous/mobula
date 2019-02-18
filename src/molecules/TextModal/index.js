@@ -1,4 +1,5 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
+import { shape, string, func } from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
@@ -33,5 +34,13 @@ class TextModal extends PureComponent {
     );
   }
 }
+
+TextModal.propTypes = {
+  article: shape({
+    title: string,
+    body: string,
+  }).isRequired,
+  handleChange: func.isRequired,
+};
 
 export default TextModal;

@@ -1,10 +1,11 @@
 import React from 'react';
+import { number } from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
 import data from '../../../data.json';
 
-const ProductCard = (props) => {
-  const product = data.find(prod => prod.id === props.pid);
+const ProductCard = ({ pid }) => {
+  const product = data.find(prod => prod.id === pid);
 
   return (
     <figure className="product">
@@ -22,6 +23,10 @@ const ProductCard = (props) => {
       </figcaption>
     </figure>
   );
+};
+
+ProductCard.propTypes = {
+  pid: number.isRequired,
 };
 
 export default ProductCard;

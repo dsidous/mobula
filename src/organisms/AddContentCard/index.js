@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { func, object } from 'prop-types';
 import Fab from '@material-ui/core/Fab';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -62,5 +63,11 @@ class AddContentCard extends PureComponent {
     );
   }
 }
+
+AddContentCard.propTypes = {
+  addArticle: func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  classes: object.isRequired,
+};
 
 export default withStyles(styles)(AddContentCard);
