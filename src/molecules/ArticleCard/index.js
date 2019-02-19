@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-  func,
   arrayOf,
   string,
   shape,
@@ -18,8 +17,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Zoom from '@material-ui/core/Zoom';
 
+import Context from '../../atoms/Context';
 import ArticleHeader from '../../atoms/ArticleHeader';
-import ProductCard from '../../molecules/ProductCard';
+import ProductCard from '../../atoms/ProductCard';
 
 const styles = () => ({
   cardHeader: {
@@ -48,10 +48,10 @@ const ArticleCard = ({
   article: {
     type, title, body, products, id,
   },
-  onClick,
-  handleRemove,
   classes,
-}) => (
+}) => {
+  const { onClick, handleRemove } = useContext(Context);
+  return (
     <Zoom in>
       <Card>
         <CardHeader
@@ -122,6 +122,7 @@ const ArticleCard = ({
       </Card>
     </Zoom>
   );
+};
 
 ArticleCard.propTypes = {
   article: shape({
@@ -131,8 +132,6 @@ ArticleCard.propTypes = {
     products: arrayOf(number),
     id: number,
   }).isRequired,
-  onClick: func.isRequired,
-  handleRemove: func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   classes: object.isRequired,
 };

@@ -12,9 +12,10 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Zoom from '@material-ui/core/Zoom';
 
 import ProductList from '../../../data.json';
-import ProductCard from '../ProductCard';
+import ProductCard from '../../atoms/ProductCard';
 
 const styles = () => ({
   cardHeader: {
@@ -45,18 +46,19 @@ const ProductsModal = ({
     <div className="products-modal">
       <div className="products-modal__products">
         {products.map(product => (
-          <div
-            key={product}
-            className={classes.wrapper}
-          >
-            <ProductCard pid={product} />
-            <IconButton
-              className={classes.icon}
-              onClick={() => handleRemoveProduct(product)}
+          <Zoom in key={product}>
+            <div
+              className={classes.wrapper}
             >
-              <AddCircleIcon />
-            </IconButton>
-          </div>
+              <ProductCard pid={product} />
+              <IconButton
+                className={classes.icon}
+                onClick={() => handleRemoveProduct(product)}
+              >
+                <AddCircleIcon />
+              </IconButton>
+            </div>
+          </Zoom>
         ))}
       </div>
       <div>

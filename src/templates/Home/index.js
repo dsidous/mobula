@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import ArticleCard from '../../organisms/ArticleCard';
-import AddContentCard from '../../organisms/AddContentCard';
-import DialogController from '../../molecules/DialogController';
+import Context from '../../atoms/Context';
+import ArticleCard from '../../molecules/ArticleCard';
+import AddContentCard from '../../molecules/AddContentCard';
+import DialogController from '../../organisms/DialogController';
 
 class Home extends PureComponent {
   state = {
@@ -59,44 +60,48 @@ class Home extends PureComponent {
     ));
   }
 
+  getContext = () => ({
+    ...this.state,
+    onClick: this.showModal,
+    handleCancel: this.handleCancel,
+    handleOk: this.handleOk,
+    addArticle: this.addArticle,
+    handleRemove: this.removeArticle,
+  })
+
   render() {
-    const { articles, showModal, modal } = this.state;
+    const { articles, showModal } = this.state;
 
     return (
-      <Grid container justify="center">
-        <Grid item xs={10} sm={8}>
-          <Grid container spacing={24}>
-            <Grid item xs={12}>
-              <Typography variant="h4">
-                Article editor
-              </Typography>
-            </Grid>
-            {
-              articles.map(article => ((
-                <Grid item xs={12} key={article.id}>
-                  <ArticleCard
-                    article={article}
-                    onClick={this.showModal}
-                    handleRemove={this.removeArticle}
-                    className="aricles-row"
-                  />
-                </Grid>
-              )))
-            }
-            <Grid item xs={12}>
-              <AddContentCard addArticle={this.addArticle} />
+      <Context.Provider value={this.getContext()}>
+        <Grid container justify="center">
+          <Grid item xs={10} sm={8}>
+            <Grid container spacing={24}>
+              <Grid item xs={12}>
+                <Typography variant="h4">
+                  Article editor
+                </Typography>
+              </Grid>
+              {
+                articles.map(article => ((
+                  <Grid item xs={12} key={article.id}>
+                    <ArticleCard
+                      article={article}
+                      className="aricles-row"
+                    />
+                  </Grid>
+                )))
+              }
+              <Grid item xs={12}>
+                <AddContentCard />
+              </Grid>
             </Grid>
           </Grid>
+          {showModal && (
+            <DialogController />
+          )}
         </Grid>
-        {showModal && (
-          <DialogController
-            showModal={showModal}
-            modal={modal}
-            handleCancel={this.handleCancel}
-            handleOk={this.handleOk}
-          />
-        )}
-      </Grid>
+      </Context.Provider>
     );
   }
 }
