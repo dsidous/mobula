@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Zoom from '@material-ui/core/Zoom';
+import { Draggable } from 'react-beautiful-dnd';
 
 import Context from '../../atoms/Context';
 import ArticleHeader from '../../atoms/ArticleHeader';
@@ -49,78 +50,92 @@ const ArticleCard = ({
     type, title, body, products, id,
   },
   classes,
+  index,
 }) => {
   const { onClick, handleRemove } = useContext(Context);
   return (
-    <Zoom in>
-      <Card>
-        <CardHeader
-          className={classes.cardHeader}
-          classes={{
-            subheader: classes.subheader,
-            action: classes.action,
-          }}
-          subheader={(
-            <ArticleHeader type={type} />
-          )}
-          action={(
-            <>
-              <IconButton
-                className={classes.iconRoot}
-                onClick={() => onClick(article)}
-              >
-                <EditIcon fontSize="small" />
-              </IconButton>
-              <IconButton
-                className={classes.iconRoot}
-                onClick={() => handleRemove(id)}
-              >
-                <DeleteIcon fontSize="small" />
-              </IconButton>
-            </>
-          )}
-        />
-        <CardContent>
-          {type === 'product' && products.length === 0 && (
-            <Typography
-              align="center"
-              variant="subtitle1"
-              color="textSecondary"
-            >
-              No products added.
-            </Typography>
-          )}
-          {type === 'product' && products.length !== 0 && (
-            <Grid container spacing={24}>
-              {products.map(product => (
-                <Grid item sm={3} xs={12} key={product}>
-                  <ProductCard pid={product} />
-                </Grid>
-              ))}
-            </Grid>
-          )}
-          {type === 'text' && title === '' && body === '' && (
-            <Typography
-              align="center"
-              variant="subtitle1"
-              color="textSecondary"
-            >
-              No text added.
-            </Typography>
-          )}
-          {type === 'text' && (title !== '' || body !== '') && (
-            <>
-              <Typography gutterBottom variant="h5" component="h2">
-                {title}
-              </Typography>
-              <Typography component="p">
-                {body}
-              </Typography>
-            </>
-          )}
-        </CardContent>
-      </Card>
-    </Zoom>
+    <Draggable
+      draggableId={id}
+      index={index}
+    >
+      {provided => (
+        <div {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}>
+          <Zoom
+            in
+          >
+            <Card>
+              <CardHeader
+                className={classes.cardHeader}
+                classes={{
+                  subheader: classes.subheader,
+                  action: classes.action,
+                }}
+                subheader={(
+                  <ArticleHeader type={type} />
+                )}
+                action={(
+                  <>
+                    <IconButton
+                      className={classes.iconRoot}
+                      onClick={() => onClick(article)}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton
+                      className={classes.iconRoot}
+                      onClick={() => handleRemove(id)}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </>
+                )}
+              />
+              <CardContent>
+                {type === 'product' && products.length === 0 && (
+                  <Typography
+                    align="center"
+                    variant="subtitle1"
+                    color="textSecondary"
+                  >
+                    No products added.
+                </Typography>
+                )}
+                {type === 'product' && products.length !== 0 && (
+                  <Grid container spacing={24}>
+                    {products.map(product => (
+                      <Grid item sm={3} xs={12} key={product}>
+                        <ProductCard pid={product} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                )}
+                {type === 'text' && title === '' && body === '' && (
+                  <Typography
+                    align="center"
+                    variant="subtitle1"
+                    color="textSecondary"
+                  >
+                    No text added.
+                </Typography>
+                )}
+                {type === 'text' && (title !== '' || body !== '') && (
+                  <>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {title}
+                    </Typography>
+                    <Typography component="p">
+                      {body}
+                    </Typography>
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          </Zoom>
+        </div>
+      )}
+    </Draggable>
   );
 };
 

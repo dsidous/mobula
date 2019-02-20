@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import Context from '../../atoms/Context';
 import Articles from '../../organisms/Articles';
@@ -69,6 +70,30 @@ class Home extends PureComponent {
     handleRemove: this.removeArticle,
   })
 
+  reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  };
+
+  onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    const { articles } = this.state;
+    const items = this.reorder(
+      articles,
+      result.source.index,
+      result.destination.index,
+    );
+
+    this.setState({
+      articles: items,
+    });
+  }
+
   render() {
     const { showModal } = this.state;
 
@@ -84,7 +109,9 @@ class Home extends PureComponent {
                 </Typography>
               </Grid>
 
-              <Articles />
+              <DragDropContext onDragEnd={this.onDragEnd}>
+                <Articles />
+              </DragDropContext>
 
               <Grid item xs={12}>
                 <AddContentCard />
