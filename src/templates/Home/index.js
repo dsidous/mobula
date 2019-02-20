@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import Context from '../../atoms/Context';
-import ArticleCard from '../../molecules/ArticleCard';
+import Articles from '../../organisms/Articles';
 import AddContentCard from '../../molecules/AddContentCard';
 import DialogController from '../../organisms/DialogController';
 
@@ -70,31 +70,26 @@ class Home extends PureComponent {
   })
 
   render() {
-    const { articles, showModal } = this.state;
+    const { showModal } = this.state;
 
     return (
       <Context.Provider value={this.getContext()}>
         <Grid container justify="center">
           <Grid item xs={10} sm={8}>
             <Grid container spacing={24}>
+
               <Grid item xs={12}>
                 <Typography variant="h4">
                   Article editor
                 </Typography>
               </Grid>
-              {
-                articles.map(article => ((
-                  <Grid item xs={12} key={article.id}>
-                    <ArticleCard
-                      article={article}
-                      className="aricles-row"
-                    />
-                  </Grid>
-                )))
-              }
+
+              <Articles />
+
               <Grid item xs={12}>
                 <AddContentCard />
               </Grid>
+
             </Grid>
           </Grid>
           {showModal && (
