@@ -1,10 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
-import './index.css';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
+import './index.css';
 import App from './App';
+import MyTheme from './MyTheme';
 
 render(
-  <App />,
+  <MuiThemeProvider theme={MyTheme}>
+    <App />
+  </MuiThemeProvider>,
   document.getElementById('root'),
 );

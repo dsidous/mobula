@@ -153,6 +153,7 @@ ArticleCard.propTypes = {
     products: arrayOf(number),
     id: number,
   }).isRequired,
+  index: number.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   classes: object.isRequired,
 };

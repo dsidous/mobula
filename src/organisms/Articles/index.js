@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import Grid from '@material-ui/core/Grid';
+import { object } from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Droppable } from 'react-beautiful-dnd';
 
 import Context from '../../atoms/Context';
 import ArticleCard from '../../molecules/ArticleCard';
-import { classes } from 'coa';
 
 const styles = theme => ({
   container: {
@@ -41,6 +40,11 @@ const Articles = ({ classes }) => {
       )}
     </Droppable>
   );
+};
+
+Articles.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  classes: object.isRequired,
 };
 
 export default withStyles(styles)(Articles);

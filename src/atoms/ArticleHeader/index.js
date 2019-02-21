@@ -6,6 +6,8 @@ import TextFormatIcon from '@material-ui/icons/TextFormat';
 import AppsIcon from '@material-ui/icons/Apps';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
+import MyTheme from '../../MyTheme';
+
 const styles = () => ({
   icon: {
     fontSize: 12,
@@ -15,10 +17,10 @@ const styles = () => ({
 
 const ArticleHeader = ({ type, mode, classes }) => (
   <>
-    {type === 'text' && <TextFormatIcon className={classes.icon} />}
-    {type === 'product' && <AppsIcon className={classes.icon} />}
-    {type === 'favourite' && <StarBorderIcon className={classes.icon} />}
-    <Typography>{`${mode} ${type}`}</Typography>
+    {type === 'text' && <TextFormatIcon className={classes.icon} style={MyTheme.palette[`${type}Text`]} />}
+    {type === 'product' && <AppsIcon className={classes.icon} style={MyTheme.palette[`${type}Text`]} />}
+    {type === 'featured' && <StarBorderIcon className={classes.icon} style={MyTheme.palette[`${type}Text`]} />}
+    <Typography style={MyTheme.palette[`${type}Text`]}>{`${mode} ${type}`}</Typography>
   </>
 );
 

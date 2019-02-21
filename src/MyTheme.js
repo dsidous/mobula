@@ -1,5 +1,10 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { blueGrey, amber, indigo, teal } from '@material-ui/core/colors';
+import {
+  blueGrey,
+  amber,
+  indigo,
+  teal,
+} from '@material-ui/core/colors';
 
 export default createMuiTheme({
   palette: {
@@ -22,6 +27,15 @@ export default createMuiTheme({
     featuredAmber: {
       backgroundColor: amber[700],
       color: '#fff',
+    },
+    textText: {
+      color: indigo[500],
+    },
+    productText: {
+      color: teal[500],
+    },
+    featuredText: {
+      color: amber[700],
     },
 
   },
