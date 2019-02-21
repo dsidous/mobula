@@ -53,9 +53,9 @@ const AddContentCard = ({ classes }) => {
           className={classes.button}
           size="small"
           variant="round"
-          color="primary"
+          color="secondary"
           type="primary"
-          onClick={() => addArticle('favourite')}
+          onClick={() => addArticle('featured')}
         >
           <StarBorderIcon />
         </Fab>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useLayoutEffect } from 'react';
 import {
   arrayOf,
   string,
@@ -53,19 +53,25 @@ const ArticleCard = ({
   index,
 }) => {
   const { onClick, handleRemove } = useContext(Context);
+  const [isZoom, setIsZoom] = useState(false);
+
+  useLayoutEffect(() => {
+    setIsZoom(true);
+  }, []);
+
   return (
     <Draggable
       draggableId={id}
       index={index}
     >
       {provided => (
-        <div {...provided.draggableProps}
+        <div
+          {...provided.draggableProps}
           {...provided.dragHandleProps}
-          ref={provided.innerRef}>
-          <Zoom
-            in
-          >
-            <Card>
+          ref={provided.innerRef}
+        >
+          <Zoom in={isZoom}>
+            <Card style={{ margin: '12px 0' }}>
               <CardHeader
                 className={classes.cardHeader}
                 classes={{
@@ -100,7 +106,7 @@ const ArticleCard = ({
                     color="textSecondary"
                   >
                     No products added.
-                </Typography>
+                  </Typography>
                 )}
                 {type === 'product' && products.length !== 0 && (
                   <Grid container spacing={24}>
@@ -118,7 +124,7 @@ const ArticleCard = ({
                     color="textSecondary"
                   >
                     No text added.
-                </Typography>
+                  </Typography>
                 )}
                 {type === 'text' && (title !== '' || body !== '') && (
                   <>
