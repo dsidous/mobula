@@ -47,7 +47,7 @@ const styles = () => ({
 const ArticleCard = ({
   article,
   article: {
-    type, title, body, products, id,
+    type, title, body, products, featured, id,
   },
   classes,
   index,
@@ -136,6 +136,22 @@ const ArticleCard = ({
                     </Typography>
                   </>
                 )}
+                {type === 'featured' && featured === null && (
+                  <Typography
+                    align="center"
+                    variant="subtitle1"
+                    color="textSecondary"
+                  >
+                    No featured product added.
+                  </Typography>
+                )}
+                {type === 'featured' && featured !== null && (
+                  <Grid container spacing={24}>
+                    <Grid item sm={3} xs={12}>
+                      <ProductCard pid={featured} />
+                    </Grid>
+                  </Grid>
+                )}
               </CardContent>
             </Card>
           </Zoom>
@@ -151,6 +167,7 @@ ArticleCard.propTypes = {
     title: string,
     body: string,
     products: arrayOf(number),
+    featured: number,
     id: number,
   }).isRequired,
   index: number.isRequired,

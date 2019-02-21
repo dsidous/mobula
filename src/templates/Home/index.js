@@ -46,11 +46,26 @@ class Home extends PureComponent {
   addArticle = (type) => {
     const { articles } = this.state;
     const id = articles.length + 1;
-    const newArticle = type === 'text'
-      ? {
-        id, type, title: '', body: '',
-      }
-      : { id, type, products: [] };
+    let newArticle;
+
+    switch (type) {
+      case 'text':
+        newArticle = {
+          id,
+          type,
+          title: '',
+          body: '',
+        };
+        break;
+      case 'product':
+        newArticle = { id, type, products: [] };
+        break;
+      case 'featured':
+        newArticle = { id, type, featured: null };
+        break;
+      default:
+        newArticle = null;
+    }
 
     this.setState(prevState => ({ articles: [...prevState.articles, newArticle] }));
   }

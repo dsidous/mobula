@@ -11,6 +11,7 @@ import Context from '../../atoms/Context';
 import ArticleHeader from '../../atoms/ArticleHeader';
 import TextModal from '../../molecules/TextModal';
 import ProductsModal from '../../molecules/ProductsModal';
+import FeaturedModal from '../../molecules/FeaturedModal';
 
 const styles = () => ({
   dialogHeader: {
@@ -54,6 +55,18 @@ const DialogController = ({ classes }) => {
     })
   );
 
+  const handleAddFeatured = id => setModal({
+    ...article,
+    featured: id,
+  });
+
+  const handleRemoveFeatured = () => (
+    setModal({
+      ...article,
+      featured: null,
+    })
+  );
+
   const { handleCancel, handleOk } = useContext(Context);
 
   return (
@@ -82,6 +95,14 @@ const DialogController = ({ classes }) => {
             products={article.products || []}
             handleAddProduct={handleAddProduct}
             handleRemoveProduct={handleRemoveProduct}
+          />
+        )}
+
+        {article.type === 'featured' && (
+          <FeaturedModal
+            featured={article.featured || null}
+            handleAddProduct={handleAddFeatured}
+            handleRemoveProduct={handleRemoveFeatured}
           />
         )}
       </DialogContent>
