@@ -6,10 +6,11 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import TextFormatIcon from '@material-ui/icons/TextFormat';
 import AppsIcon from '@material-ui/icons/Apps';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import { withStyles } from '@material-ui/core/styles';
+import StarIcon from '@material-ui/icons/Star';
+import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 
 import Context from '../../atoms/Context';
+import MyTheme from '../../MyTheme';
 
 const styles = theme => ({
   button: {
@@ -23,44 +24,43 @@ const styles = theme => ({
 const AddContentCard = ({ classes }) => {
   const { addArticle } = useContext(Context);
   return (
-    <Card>
-      <CardHeader
-        className={classes.cardHeader}
-        subheader="+ Add content"
-      />
-      <CardContent>
-        <Fab
-          className={classes.button}
-          size="small"
-          variant="round"
-          color="primary"
-          type="primary"
-          onClick={() => addArticle('text')}
-        >
-          <TextFormatIcon />
-        </Fab>
-        <Fab
-          className={classes.button}
-          size="small"
-          variant="round"
-          color="primary"
-          type="primary"
-          onClick={() => addArticle('product')}
-        >
-          <AppsIcon />
-        </Fab>
-        <Fab
-          className={classes.button}
-          size="small"
-          variant="round"
-          color="secondary"
-          type="primary"
-          onClick={() => addArticle('featured')}
-        >
-          <StarBorderIcon />
-        </Fab>
-      </CardContent>
-    </Card>
+    <MuiThemeProvider theme={MyTheme}>
+      <Card>
+        <CardHeader
+          className={classes.cardHeader}
+          subheader="+ Add content"
+        />
+        <CardContent>
+          <Fab
+            className={classes.button}
+            size="small"
+            variant="round"
+            style={MyTheme.palette.textBlue}
+            onClick={() => addArticle('text')}
+          >
+            <TextFormatIcon />
+          </Fab>
+          <Fab
+            className={classes.button}
+            size="small"
+            variant="round"
+            style={MyTheme.palette.productTeal}
+            onClick={() => addArticle('product')}
+          >
+            <AppsIcon />
+          </Fab>
+          <Fab
+            className={classes.button}
+            size="small"
+            variant="round"
+            style={MyTheme.palette.featuredAmber}
+            onClick={() => addArticle('featured')}
+          >
+            <StarIcon />
+          </Fab>
+        </CardContent>
+      </Card>
+    </MuiThemeProvider>
   );
 };
 
