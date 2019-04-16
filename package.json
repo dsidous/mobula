@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html --open",
-    "build": "rimraf dist && parcel build index.html"
+    "build": "rimraf dist && parcel build index.html",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors"
   },
   "keywords": [
     "parcel",
@@ -38,6 +41,8 @@
     "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-import": "^1.11.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
     "eslint": "^5.13.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
@@ -45,6 +50,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.1.0-alpha.0",
+    "jest": "^24.7.1",
     "parcel-bundler": "^1.8.1",
     "rimraf": "^2.6.2"
   }
